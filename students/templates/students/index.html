@@ -4,7 +4,7 @@
  <head>
     <title>Student Manage System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <line href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" >
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"> 
     <body class="d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid">
@@ -14,7 +14,7 @@
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
-
+               
               <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                   <li class="nav-item">
@@ -35,7 +35,7 @@
         <h3 class="m-4">All Students</h3>
         <div class="row">
           <div class="col-12">
-            {% if Students %}
+           {% if students %}
             <div class="card bg-light ms-4 me-4 mb-4">
               <div class="card-header">
                 <i class="fa-solid fa-list fa-lg"></i> Student Records
@@ -46,7 +46,6 @@
                     <table class="table table-hover">
                       <thead>
                         <tr>
-                          <th scope="col">Type</th>
                           <th scope="col">Student Number</th>
                           <th scope="col">First Name</th>
                           <th scope="col">Last Name</th>
@@ -58,17 +57,44 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {% for student in students %}
-                        <tr>
-                          <td>{{ student.student_number }}</td>
-                          <td>{{ student.first_name }}</td>
-                          <td>{{ student.last_name }}</td>
-                          <td>{{ student.email }}</td>
-                          <td>{{ field_of_study }}</td>
-                          <td>{{ gpa  }}</td>
-                          <td>{{ student.student_phone_number }}</td>
-                          <td>{{ student.ACTION }}</td>
-                        </tr>
+                       {% for student in students %}
+                         <tr>
+                           <td>{{ student.student_number }}</td>
+                           <td>{{ student.first_name }}</td>
+                           <td>{{ student.last_name }}</td>
+                           <td>{{ student.email }}</td>
+                           <td>{{ student.field_of_study }}</td>
+                           <td>{{ student.gpa }}</td>
+                           <td>{{ student.student_phone_number }}</td>
+                           <td>
+                            <button type="button" class="btn btn-success me-1" href="{% url 'view_student' student.id %}"  data-bs-toggle="modal" data-bs-target="#myModal
+                             {{student.id}}">
+                             <i class="fa-duotone fa-circle-info fa-lg"></i>
+                            </button>
+
+                            <!-- modal - view student -->
+                            <div class="modal" id="myModal{{student.id}}">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true"></span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>Modal body text goes here.</p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                           </td>
+                         </tr>
+                       {% endfor %}
                       </tbody>
                     </table>
                   </div>
